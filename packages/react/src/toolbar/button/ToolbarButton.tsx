@@ -5,8 +5,9 @@ import { useComponentRenderer } from '../../utils/useComponentRenderer';
 import { BaseUIComponentProps } from '../../utils/types';
 import { useButton } from '../../use-button';
 import { CompositeItem } from '../../composite/item/CompositeItem';
+import type { ToolbarRoot } from '../root/ToolbarRoot';
+import { useToolbarRootContext } from '../root/ToolbarRootContext';
 
-const EMPTY_OBJECT = {};
 /**
  * A button that can be used as-is or as a trigger for other components.
  * Renders a `<button>` element.
@@ -17,7 +18,9 @@ const ToolbarButton = React.forwardRef(function ToolbarButton(
   props: ToolbarButton.Props,
   forwardedRef: React.ForwardedRef<HTMLButtonElement>,
 ) {
-  const { className, disabled, render, ...otherProps } = props;
+  const { className, disabled = false, render, ...otherProps } = props;
+
+  const { orientation } = useToolbarRootContext();
 
   const { getButtonProps } = useButton({
     buttonRef: forwardedRef,
@@ -26,10 +29,18 @@ const ToolbarButton = React.forwardRef(function ToolbarButton(
     type: 'button',
   });
 
+  const state = React.useMemo(
+    () => ({
+      disabled,
+      orientation,
+    }),
+    [disabled, orientation],
+  );
+
   const { renderElement } = useComponentRenderer({
     propGetter: getButtonProps,
     render: render ?? 'button',
-    state: EMPTY_OBJECT,
+    state,
     className,
     extraProps: otherProps,
   });
@@ -38,14 +49,12 @@ const ToolbarButton = React.forwardRef(function ToolbarButton(
 });
 
 export namespace ToolbarButton {
-  export interface Props extends BaseUIComponentProps<'button', State> {
+  export interface Props extends BaseUIComponentProps<'button', ToolbarRoot.State> {
     /**
      * @default false
      */
     disabled?: boolean;
   }
-
-  export interface State {}
 }
 
 export { ToolbarButton };

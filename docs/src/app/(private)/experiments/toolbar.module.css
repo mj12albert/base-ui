@@ -9,6 +9,13 @@
   text-wrap: nowrap;
 }
 
+/* disabled buttons */
+.Root > button[data-disabled],
+.Root > [role='group'] > button[data-disabled] {
+  color: color-mix(in srgb, currentColor 50%, transparent) !important;
+  cursor: not-allowed !important;
+}
+
 .Separator {
   width: 1px;
   align-self: stretch;

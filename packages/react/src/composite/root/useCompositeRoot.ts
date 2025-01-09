@@ -212,6 +212,8 @@ export function useCompositeRoot(params: UseCompositeRootParameters) {
               nextIndex = maxIndex;
             }
           }
+          console.log('here');
+          console.log('nextIndex1', nextIndex);
 
           if (
             nextIndex === highlightedIndex &&
@@ -229,6 +231,7 @@ export function useCompositeRoot(params: UseCompositeRootParameters) {
               });
             }
           }
+          console.log('nextIndex2', nextIndex);
 
           if (nextIndex !== highlightedIndex && !isIndexOutOfBounds(elementsRef, nextIndex)) {
             if (stopEventPropagation) {

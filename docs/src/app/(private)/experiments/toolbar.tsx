@@ -10,16 +10,22 @@ import selectClasses from '../../(public)/(content)/react/components/select/demo
 import menuClasses from '../../(public)/(content)/react/components/menu/demos/hero/css-modules/index.module.css';
 import '../../../demo-theme.css';
 
+const DISABLED = true;
+
 export default function App() {
   return (
     <Toolbar.Root className={s.Root}>
       <Select.Root defaultValue="sans">
-        <Toolbar.Button render={<Select.Trigger />} className={selectClasses.Select}>
+        <Select.Trigger
+          disabled={DISABLED}
+          render={<Toolbar.Button />}
+          className={selectClasses.Select}
+        >
           <Select.Value placeholder="Sans-serif" />
           <Select.Icon className={selectClasses.SelectIcon}>
             <ChevronUpDownIcon />
           </Select.Icon>
-        </Toolbar.Button>
+        </Select.Trigger>
         <Select.Portal>
           <Select.Positioner className={selectClasses.Positioner} sideOffset={8}>
             <Select.Popup className={selectClasses.Popup}>
@@ -66,35 +72,76 @@ export default function App() {
       <Toolbar.Separator className={s.Separator} />
 
       <ToggleGroup defaultValue={[]} className={s.ToggleGroup}>
-        <Toggle aria-label="Bold" value="bold" className={s.Toggle}>
+        <Toggle
+          render={<Toolbar.Button />}
+          aria-label="Bold"
+          value="bold"
+          className={s.Toggle}
+          disabled={DISABLED}
+        >
           <BoldIcon className={s.Icon} />
         </Toggle>
-        <Toggle aria-label="Italics" value="italics" className={s.Toggle}>
+        <Toggle
+          render={<Toolbar.Button />}
+          aria-label="Italics"
+          value="italics"
+          className={s.Toggle}
+          disabled={DISABLED}
+        >
           <ItalicsIcon className={s.Icon} />
         </Toggle>
-        <Toggle aria-label="Underline" value="underline" className={s.Toggle}>
+        <Toggle
+          render={<Toolbar.Button />}
+          aria-label="Underline"
+          value="underline"
+          className={s.Toggle}
+          disabled={DISABLED}
+        >
           <UnderlineIcon className={s.Icon} />
         </Toggle>
       </ToggleGroup>
 
       <Toolbar.Separator className={s.Separator} />
 
-      <ToggleGroup defaultValue={['left']} className={s.ToggleGroup}>
-        <Toggle aria-label="Align left" value="left" className={s.Toggle}>
+      <ToggleGroup
+        defaultValue={['left']}
+        className={s.ToggleGroup}
+        disabled={DISABLED}
+      >
+        <Toolbar.Button
+          render={<Toggle />}
+          aria-label="Align left"
+          value="left"
+          className={s.Toggle}
+        >
           <AlignLeftIcon className={s.Icon} />
-        </Toggle>
-        <Toggle aria-label="Align center" value="center" className={s.Toggle}>
+        </Toolbar.Button>
+        <Toolbar.Button
+          render={<Toggle />}
+          aria-label="Align center"
+          value="center"
+          className={s.Toggle}
+        >
           <AlignCenterIcon className={s.Icon} />
-        </Toggle>
-        <Toggle aria-label="Align right" value="right" className={s.Toggle}>
+        </Toolbar.Button>
+        <Toolbar.Button
+          render={<Toggle />}
+          aria-label="Align right"
+          value="right"
+          className={s.Toggle}
+        >
           <AlignRightIcon className={s.Icon} />
-        </Toggle>
+        </Toolbar.Button>
       </ToggleGroup>
 
       <Toolbar.Separator className={s.Separator} />
 
       <Menu.Root>
-        <Toolbar.Button render={<Menu.Trigger />} className={s.More}>
+        <Toolbar.Button
+          disabled={DISABLED}
+          render={<Menu.Trigger />}
+          className={s.More}
+        >
           <MoreHorizontalIcon className={s.Icon} />
         </Toolbar.Button>
         <Menu.Portal>

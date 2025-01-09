@@ -344,6 +344,7 @@ export function getCellIndices(indices: (number | undefined)[], cellMap: (number
   return cellMap.flatMap((index, cellIndex) => (indices.includes(index) ? [cellIndex] : []));
 }
 
+// TODO: handle focusableWhileDisabled
 export function isDisabled(
   list: Array<HTMLElement | null>,
   index: number,
