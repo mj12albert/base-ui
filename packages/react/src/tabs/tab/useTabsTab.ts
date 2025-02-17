@@ -58,14 +58,6 @@ function useTabsTab(parameters: useTabsTab.Parameters): useTabsTab.ReturnValue {
     return valueParam === selectedTabValue;
   }, [index, selectedTabValue, valueParam]);
 
-  // when activateOnFocus is `true`, ensure the active item in Composite's roving
-  // focus group matches the selected Tab
-  useEnhancedEffect(() => {
-    if (activateOnFocus && selected && index > -1 && highlightedTabIndex !== index) {
-      setHighlightedTabIndex(index);
-    }
-  }, [activateOnFocus, highlightedTabIndex, index, selected, setHighlightedTabIndex]);
-
   const { getButtonProps, buttonRef } = useButton({
     disabled,
     focusableWhenDisabled: true,
@@ -105,6 +97,11 @@ function useTabsTab(parameters: useTabsTab.Parameters): useTabsTab.ReturnValue {
               onTabActivation(tabValue, event.nativeEvent);
             }
           },
+          onKeyDown() {
+            if (index > -1) {
+              setHighlightedTabIndex(index);
+            }
+          },
           onPointerDown(event) {
             if (selected || disabled) {
               return;
@@ -139,6 +136,8 @@ function useTabsTab(parameters: useTabsTab.Parameters): useTabsTab.ReturnValue {
       tabPanelId,
       tabValue,
       disabled,
+      index,
+      setHighlightedTabIndex,
     ],
   );
 
