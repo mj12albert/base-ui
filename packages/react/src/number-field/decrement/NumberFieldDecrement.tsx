@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { useNumberFieldRootContext } from '../root/NumberFieldRootContext';
 import { useComponentRenderer } from '../../utils/useComponentRenderer';
 import type { NumberFieldRoot } from '../root/NumberFieldRoot';
-import { BaseUIComponentProps } from '../../utils/types';
+import { useNumberFieldButton } from '../root/useNumberFieldButton';
+import { BaseUIComponentProps, GenericHTMLProps } from '../../utils/types';
 
 /**
  * A stepper button that decreases the field value when clicked.
@@ -18,10 +19,58 @@ const NumberFieldDecrement = React.forwardRef(function NumberFieldDecrement(
 ) {
   const { render, className, ...otherProps } = props;
 
-  const { getDecrementButtonProps, state } = useNumberFieldRootContext();
+  const {
+    allowInputSyncRef,
+    disabled,
+    formatOptionsRef,
+    getStepAmount,
+    id,
+    incrementValue,
+    inputRef,
+    inputValue,
+    intentionalTouchCheckTimeoutRef,
+    isPressedRef,
+    maxWithDefault,
+    minWithDefault,
+    movesAfterTouchRef,
+    readOnly,
+    setValue,
+    startAutoChange,
+    state,
+    stopAutoChange,
+    value,
+    valueRef,
+  } = useNumberFieldRootContext();
+
+  const { getCommonButtonProps } = useNumberFieldButton({
+    inputRef,
+    startAutoChange,
+    stopAutoChange,
+    minWithDefault,
+    maxWithDefault,
+    value,
+    inputValue,
+    disabled,
+    readOnly,
+    id,
+    setValue,
+    getStepAmount,
+    incrementValue,
+    allowInputSyncRef,
+    formatOptionsRef,
+    valueRef,
+    isPressedRef,
+    intentionalTouchCheckTimeoutRef,
+    movesAfterTouchRef,
+  });
+
+  const propGetter = React.useCallback(
+    (externalProps: GenericHTMLProps) => getCommonButtonProps(false, externalProps),
+    [getCommonButtonProps],
+  );
 
   const { renderElement } = useComponentRenderer({
-    propGetter: getDecrementButtonProps,
+    propGetter,
     ref: forwardedRef,
     render: render ?? 'button',
     state,
